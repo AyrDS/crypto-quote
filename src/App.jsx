@@ -51,13 +51,13 @@ export const App = () => {
       if (Object.keys(currencies).length > 0) {
          const quoteCrypto = async () => {
             setLoading(true);
-            const { currency, criptoCurrency } = currencies;
-            const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptoCurrency}&tsyms=${currency}`;
+            const { currency, cryptoCurrency } = currencies;
+
+            const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptoCurrency}&tsyms=${currency}`;
 
             const response = await fetch(url);
             const result = await response.json();
-
-            setQuotation(result.DISPLAY[criptoCurrency][currency]);
+            setQuotation(result.DISPLAY[cryptoCurrency][currency]);
             setLoading(false);
          }
 

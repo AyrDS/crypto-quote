@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Error } from './Error';
 import { currencies } from '../data/currencies';
 import { useForm } from '../hooks/useForm';
+import { MySelect } from './';
 
 const InputSubmit = styled.input`
    background-color: #9497FF;
@@ -31,8 +32,7 @@ const formData = {
 export const Form = ({ setCurrencies }) => {
    const [cryptos, setCryptos] = useState([]);
    const [error, setError] = useState(false);
-   const { currency, cryptoCurrency, formState, onInputChange } = useForm(formData);
-
+   const { currency, cryptoCurrency, onInputChange } = useForm(formData);
 
    useEffect(() => {
       const fetchApi = async () => {
@@ -75,6 +75,22 @@ export const Form = ({ setCurrencies }) => {
          <form
             onSubmit={handleSubmit}
          >
+            <MySelect
+               label='Elige tu Moneda'
+               name='currency'
+               value={currency}
+               handleInputChange={onInputChange}
+               options={currencies}
+            />
+
+            <MySelect
+               label='Elige tu Cryptomoneda'
+               name='cryptoCurrency'
+               value={cryptoCurrency}
+               handleInputChange={onInputChange}
+               options={cryptos}
+            />
+
             <InputSubmit
                type="submit"
                value='Cotizar'

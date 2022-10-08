@@ -25,6 +25,7 @@ export const MySelect = ({ label, options, value, name, handleInputChange }) => 
             name={name}
             onChange={handleInputChange}
          >
+            <option value=''>Seleccione</option>
             {
                options?.map((opt) => (
                   <option key={opt.id} value={opt.id} > {opt.name} </option>
