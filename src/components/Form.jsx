@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { currencies } from '../data/currencies';
-import useSelectCurrency from '../hooks/useSelectCurrency';
 import { Error } from './Error';
+import { currencies } from '../data/currencies';
+import { useForm } from '../hooks/useForm';
 
 const InputSubmit = styled.input`
    background-color: #9497FF;
@@ -21,14 +21,18 @@ const InputSubmit = styled.input`
    &:hover {
       background-color: #7A7DFE;
    }
-`
+`;
+
+const formData = {
+   currency: '',
+   cryptoCurrency: ''
+};
 
 export const Form = ({ setCurrencies }) => {
    const [cryptos, setCryptos] = useState([]);
    const [error, setError] = useState(false);
+   const { currency, cryptoCurrency, formState, onInputChange } = useForm(formData);
 
-   const [currency, SelectCurrency] = useSelectCurrency('Elige tu Moneda', currencies);
-   const [criptoCurrency, SelectCripto] = useSelectCurrency('Elige tu Criptomoneda', cryptos);
 
    useEffect(() => {
       const fetchApi = async () => {
@@ -54,14 +58,14 @@ export const Form = ({ setCurrencies }) => {
    const handleSubmit = (e) => {
       e.preventDefault();
 
-      if ([currency, criptoCurrency].includes('')) {
+      if ([currency, cryptoCurrency].includes('')) {
          return setError(true);
       }
 
       setError(false);
       setCurrencies({
          currency,
-         criptoCurrency
+         cryptoCurrency
       })
    }
 
@@ -71,8 +75,6 @@ export const Form = ({ setCurrencies }) => {
          <form
             onSubmit={handleSubmit}
          >
-            <SelectCurrency />
-            <SelectCripto />
             <InputSubmit
                type="submit"
                value='Cotizar'
